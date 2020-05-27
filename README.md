@@ -1,2 +1,2 @@
-# configurations
-Configurations for sending web hooks for other servers
+# Configurations
+Configuration code for sending github web hooks for other servers on deployment
