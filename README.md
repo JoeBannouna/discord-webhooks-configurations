@@ -2,8 +2,6 @@
 Webhooks Configurations for sending messages to discord upon push, deployment and deployment_status
 
 <br>
-<br>
-<br>
 
 ## Requirements
 
