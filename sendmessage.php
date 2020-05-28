@@ -84,7 +84,7 @@ if ($signature == $realSignature) {
         'content-type'   => "application/json",
         'content' => $output,
         'username' => $username,
-        'avatar_url' => getenve("AVATAR_URL"),
+        'avatar_url' => getenv("AVATAR_URL"),
     ]));
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
