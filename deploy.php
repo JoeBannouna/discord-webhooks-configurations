@@ -18,9 +18,9 @@ curl_setopt($ch, CURLOPT_URL, getenv("HEROKU_DISCORD_DEPLOYMENT_URL"));
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'content-type'   => "application/json",
-    'content' => $output,
-    'username' => $username,
-    'avatar_url' => getenv("AVATAR_URL"),
+    'content' => "Deployment has been made",
+    'username' => "Testing bot",
+    'avatar_url' => "https://pbs.twimg.com/profile_images/833180315153608704/g_LAHGXB_400x400.jpg",
 ]));
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
