@@ -51,7 +51,7 @@ if ($signature == $realSignature) {
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
 
         $output = "***--------------------------------------------------------------------------------------------------------------
-        \n$name* has pushed to `$repo` with commit \"`$commit`\"!\n\n**";
+        \n$name* hass pushed to `$repo` with commit \"`$commit`\"!\n\n**";
 
     } elseif ($gitHubEvent == "deployment") {
         
