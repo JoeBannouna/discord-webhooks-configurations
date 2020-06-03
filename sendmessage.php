@@ -51,21 +51,25 @@ if ($signature == $realSignature) {
         
         $time = file_get_contents(TIMEFILE);
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
+        
+        $repo = $json->repository->name;
 
         $output = "
             **A deployment has been made!** ``` X_GitHub_Event ---> $gitHubEvent
             \n User_Agent ---> $userAgent
             \n X_GitHub_Delivery ---> $githubDelivery
             \n X_Hub_Signature ---> $signature```
+            $repo
         ";
 
     } elseif ($gitHubEvent == "deployment_status") {
 
+        $repo = $json->repository->name;
         $time = file_get_contents(TIMEFILE);
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
 
         if ($json->deployment_status->state == "success") {
-            $output = "**\n\nDeployment succeeded!**";
+            $output = "**\n\nDeployment succeeded! $repo**";
         } else {
             $output = "**\n\nDeployment failed!**";
         }
