@@ -100,3 +100,5 @@ if ($signature == $realSignature) {
     http_response_code(403);
     die("<h1>Forbidden</h1>\n");
 }
+
+echo $repo;
