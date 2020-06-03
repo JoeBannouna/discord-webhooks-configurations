@@ -37,13 +37,12 @@ if ($signature == $realSignature) {
     $payload = $_POST['payload'];
     $json = json_decode($payload);
 
-    print($json);
+    $repo = $json->repository->name;
 
     if ($gitHubEvent == "push") {
 
         $name = $json->pusher->name;
         $commit = $json->head_commit->message;
-        $repo = $json->repository->name;
 
         $time = time();
         file_put_contents(TIMEFILE, $time);
@@ -51,14 +50,13 @@ if ($signature == $realSignature) {
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
 
         $output = "***--------------------------------------------------------------------------------------------------------------
-        \n$name* hass pushed to `$repo` with commit \"`$commit`\"!\n\n**";
+        \n$name* has pushed to `$repo` with commit \"`$commit`\"!\n\n**";
 
     } elseif ($gitHubEvent == "deployment") {
         
         $time = file_get_contents(TIMEFILE);
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
         
-        $repo = $json->repository->name;
 
         $output = "
             **A deployment has been made!** ``` X_GitHub_Event ---> $gitHubEvent
@@ -70,7 +68,6 @@ if ($signature == $realSignature) {
 
     } elseif ($gitHubEvent == "deployment_status") {
 
-        $repo = $json->repository->name;
         $time = file_get_contents(TIMEFILE);
         $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
 
