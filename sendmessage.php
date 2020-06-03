@@ -18,7 +18,7 @@ define(TIMEFILE, 'date.txt');
 @$signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
 
 // Generate your own signature using the secret you put while making the webhook
-$secret = getenv($repo . "_GITHUB_WEBHOOK_SECRET");
+$secret = getenv("GITHUB_WEBHOOK_SECRET");
 $post_data = file_get_contents('php://input');
 $realSignature = 'sha1=' . hash_hmac('sha1', $post_data, $secret);
 
