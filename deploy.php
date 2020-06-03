@@ -19,7 +19,7 @@ curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'content-type'   => "application/json",
     'content' => "Deployment has been made",
-    'username' => "Testing bot",
+    'username' => "Testing bot" . rand(1000, 9999),
     'avatar_url' => "https://pbs.twimg.com/profile_images/833180315153608704/g_LAHGXB_400x400.jpg",
 ]));
 

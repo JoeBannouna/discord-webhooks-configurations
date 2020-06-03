@@ -18,7 +18,7 @@ define(TIMEFILE, 'date.txt');
 @$signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
 
 // Generate your own signature using the secret you put while making the webhook
-$secret = getenv("GITHUB_WEBHOOK_SECRET");
+$secret = getenv($repo . "_GITHUB_WEBHOOK_SECRET");
 $post_data = file_get_contents('php://input');
 $realSignature = 'sha1=' . hash_hmac('sha1', $post_data, $secret);
 
@@ -47,7 +47,7 @@ if ($signature == $realSignature) {
         $time = time();
         file_put_contents(TIMEFILE, $time);
 
-        $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
+        $username = getenv($repo . "_YOUR_APP_NAME") . ' Bot ' . $time;
 
         $output = "***--------------------------------------------------------------------------------------------------------------
         \n$name* has pushed to `$repo` with commit \"`$commit`\"!\n\n**";
@@ -55,7 +55,7 @@ if ($signature == $realSignature) {
     } elseif ($gitHubEvent == "deployment") {
         
         $time = file_get_contents(TIMEFILE);
-        $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
+        $username = getenv($repo . "_YOUR_APP_NAME") . ' Bot ' . $time;
         
 
         $output = "
@@ -63,16 +63,15 @@ if ($signature == $realSignature) {
             \n User_Agent ---> $userAgent
             \n X_GitHub_Delivery ---> $githubDelivery
             \n X_Hub_Signature ---> $signature```
-            $repo
         ";
 
     } elseif ($gitHubEvent == "deployment_status") {
 
         $time = file_get_contents(TIMEFILE);
-        $username = getenv("YOUR_APP_NAME") . ' Bot ' . $time;
+        $username = getenv($repo . "_YOUR_APP_NAME") . ' Bot ' . $time;
 
         if ($json->deployment_status->state == "success") {
-            $output = "**\n\nDeployment succeeded! $repo**";
+            $output = "**\n\nDeployment succeeded!**";
         } else {
             $output = "**\n\nDeployment failed!**";
         }
@@ -85,13 +84,13 @@ if ($signature == $realSignature) {
     // Send the message to discord
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL, getenv("DISCORD_DEPLOYMENT_URL"));
+    curl_setopt($ch, CURLOPT_URL, getenv($repo . "_DISCORD_DEPLOYMENT_URL"));
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
         'content-type'   => "application/json",
         'content' => $output,
         'username' => $username,
-        'avatar_url' => getenv("AVATAR_URL"),
+        'avatar_url' => getenv($repo . "_AVATAR_URL"),
     ]));
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
