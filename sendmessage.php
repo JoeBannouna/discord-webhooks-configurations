@@ -22,8 +22,12 @@ $secret = getenv("GITHUB_WEBHOOK_SECRET");
 $post_data = file_get_contents('php://input');
 $realSignature = 'sha1=' . hash_hmac('sha1', $post_data, $secret);
 
+echo "Initiated<br>";
+
 // Verify the signature matches
 if ($signature == $realSignature) {
+
+    echo "Verified<br>";
 
     // Other data gihub provides
     $gitHubEvent = $_SERVER['HTTP_X_GITHUB_EVENT'];
@@ -32,6 +36,8 @@ if ($signature == $realSignature) {
 
     $payload = $_POST['payload'];
     $json = json_decode($payload);
+
+    print($json);
 
     if ($gitHubEvent == "push") {
 
@@ -100,5 +106,3 @@ if ($signature == $realSignature) {
     http_response_code(403);
     die("<h1>Forbidden</h1>\n");
 }
-
-print($json);
