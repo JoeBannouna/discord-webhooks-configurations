@@ -101,4 +101,4 @@ if ($signature == $realSignature) {
     die("<h1>Forbidden</h1>\n");
 }
 
-print($json->repository);
+print($json);
